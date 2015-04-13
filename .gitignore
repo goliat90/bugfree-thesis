@@ -10,5 +10,7 @@
 *.pdf
 
 
-#vim swap
+#temp files for editors
 *.swp
+*.*~
+
