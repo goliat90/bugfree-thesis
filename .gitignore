@@ -9,3 +9,6 @@
 *.out
 *.pdf
 
+
+#vim swap
+*.swp
