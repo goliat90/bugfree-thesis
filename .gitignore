@@ -8,6 +8,8 @@
 *.aux
 *.out
 *.pdf
+*.bcf
+*.xml
 
 
 #temp files for editors
