@@ -1,0 +1,11 @@
+
+#latex files
+*.bbl
+*.blg
+*.log
+*.toc
+*.bst
+*.aux
+*.out
+
+
