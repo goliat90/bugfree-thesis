@@ -1,17 +1,137 @@
 \chapter{Introduction}
+Binary rewriting is a method to update binaries with new
+features, e.g., new ISA instructions, platform optimizations,
+security checks for untrusted binaries, improved reliability.
+%
+
+Some of these features are easier to add when working at the binary-level
+where information needed for the transformation is available.
+Passing this information up to the appropriate statements at the
+source-level is often not possible.
+%
+Furthermore, modifications performed at the source-level might be discarded
+since the compiler only considers semantic correctness and
+possibly improved execution time.
+%
+
+A binary rewriting framework can aid in development of binary
+transformations by providing basic functions that can be
+used when creating transformations and optimizations that could
+be used to improve performance.
+%
 
 \section{Background}
+\todo[inline]{Background on binary rewriting. Areas of use. More stuff}
+
+
+\section{Goals}
+The aim of the thesis is to create a framework for binary rewriting for MIPS
+binaries in the open-source ROSE compiler infrastructure~\cite{rose}.
+To show the benefits of a framework like this we will use it to implement
+reliability transformations, which will be used to prove its usefulness.
+%
+
+The framework will help with implementing binary rewriting for
+any purpose by providing basic functions that can be used when creating
+transformations. A limited number of high-level concepts such as variables
+will be available in the framework to remove some of the limitations of working
+at the binary-level, e.g., finite amount of registers.
+%
+
+%limited amount of opimization mentioned her as well.
+Furthermore, the framework will also provide a limited amount of optimizations
+such as instruction scheduling and register allocation schemes that can
+be used on transformed binaries to improve performance. These optimizations
+provided also have to guarantee to not degrade applied transformations.
+
 
 \section{Related Work}
+%
+There already exists several binary rewriting frameworks that are similar
+to the framework we are proposing. However, these frameworks have
+implementations that impedes the creation of transformed binaries
+which are also well optimized. Two similar frameworks to our is SWIFT and
+SecondWrite.
+%
 
-\section{Purpose}
+SWIFT uses compiler-based transformations to increase reliability~\cite{swift}.
+A transformation it is capable of performing instruction duplication. This
+creates two independant executions of the original program that can be
+compared for consistency.
+%
+The transformations SWIFT have are based on templates and does not
+have any optimizations that could be used to improve performance.
+%Our framework will not apply transformations through templates and
+%will as previously mentioned provide some global optimizations.
+%
+
+SecondWrite is a framework that is targeting x86~\cite{secondwrite}.
+A binary that SecondWrite is going to transform
+is translated into a intermediate representation(IR) with a higher
+level of abstraction than instruction-level, the transformations
+and optimizations are performed on this IR.
+%
+A drawback of this translation is that information is lost
+which could be critical in determining if an optimization
+should be used.
+%
+%Our framework will not use an IR and instead work
+%at the binary-level. This is to preserve as much information as
+%possible that can be used when applying transformations
+%and optimizations.
+%
+
 
 \section{Method of Approach}
 
+%Create basic framework components.
+Initially the basic components of the framework will be
+constructed, some of these will be used by applications
+using the framework. Together with the basics of the framework
+a naive transformation will be implemented, it will produce
+functioning transformed binaries but with no regards for performance.
+%
+
+%implement optimizations
+After the foundation of the framework and the naive transformation
+is implemented then optimizations will be added to the framework.
+The optimizations will provide users of the framework a
+transformation applies optimizations to the transformation.
+
+%Comparison between naive and optimized
+The framework will be evaluated in terms of performance by
+comparing transformed binaries with optimizations to
+unoptimized transformed binaries. The Gem5 simululator will
+be used for the evaluation of the binaries.
+
 \section{Limitations}
-not floating point.
+Limitations on the project have been set since binary rewriting 
+is a wide subject and there is a limited amount of time available
+for the project.
 
-transformation of specific parts of a program. (kernel)
+\subsection{Partial Transformations}
+%transformation of specific parts of a program. (kernel)
+Instead of applying the transformations to an entire program
+it will instead be used on selected functions.
 
-mips binaries, little endian because of Gem5
+\subsection{MIPS Instruction Set}
+%mips only, release 1
+%not floating point.
+MIPS has been selected since it is a simple architecture compared
+to x86 for example. Furthermore the project will limit itself
+to the instruction set of MIPS Release I and will also not
+include floating point instructions in any way.  
+
+\subsection{Limited Amount of Optimizations}
+%two optimizations
+The number of transformations that will be provided has been
+limited to two, one register allocation and one instruction
+scheduling optimization.
+
+\subsection{Fault-Tolerant Transformations}
+As mentioned there are many applications for binary rewriting
+but for this project fault-tolerant transformations have
+been selected to be used. 
+
+
 

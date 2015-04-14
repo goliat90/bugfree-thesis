@@ -1,20 +1,44 @@
 \chapter{Theory and Tools}
+\todo[inline]{Write introduction for chapter, theory and tools used,
+why they are used.}
+
 
 \section{Optimizations}
+\todo[inline]{Introduction to optimizations, their purpose.}
 
 \subsection{Register Allocation}
+\todo[inline]{Write about the choices of register allocation}
 
-\subsection{Motivation}
-Motivate selection.
 
 \subsection{Instruction Scheduling}
+\todo[inline]{Write about the choices fo instruction scheduling}
 
-\subsection{Motivation}
-Motivate selection.
 
 \section{MIPS}
+\todo[inline]{Introduction to mips. This could be unneccesary if
+considering the level of readers knowledge}
 
 \section{ROSE}
+\todo[inline]{Introduction to rose, its capabilities and what is
+it is used for}
+ROSE is an open-source compiler infrastructure which can be used to build
+source-to-source compilers for a large set of programming languages.
+It is also capable of performing binary analysis on several
+binary formats, one of them being MIPS.
+%
 
-\section{Gem5}
+Its frontend is used in the project for parsing the binaries and using
+the abstract syntax tree(AST) that ROSE creates to apply desired
+transformations to the binary. The backend will also be used to build
+binaries after transformations have been applied~\cite{rose}.
+
+\section{gem5}
+\todo[inline]{introduction to gem5, what it offers etc.}
+The gem5 is the simulator used during the project to evaluate the performance
+of transformed binaries. It was selected since it supports MIPS and
+is also acknowledged in academic community as well as industry~\cite{gem5}.
+
+\section{Fault-Tolerance}
+\todo[inline]{short description of the tmr fault tolerance used,
+have a reference as well?}
 
