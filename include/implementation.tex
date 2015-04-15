@@ -1,24 +1,73 @@
 \chapter{Framework}
+The implementation of the framework can be broken down to several components.
+Some of these are common and needed in all transformations regardless
+of if naive or optimized transformation is being used.
 
 \section{Common Components}
+The common components are such that they are needed to be able
+to complete a transformation. All these components provide a
+specific function needed during a transformation.
 
-\subsection{Frontend \& Backend}
+\subsection{ROSEs Frontend \& Backend}
 %Since Rose is going to be used this will probably be quite short.
 
-\subsection{Branch Tracking}
-%Why do branch addresses needs to be tracked.
+\subsection{Symbolic Registers}
+%Describe the symbolic register use.
 
-\subsection{Activation Records}
-%Why the activation records needs to be controlled.
+
 
 \subsection{Instruction Addresses}
 %Why the address scope needs to be checked.
+%Relates to the size of the binary.
+When instructions are inserted or removed the addresses of the
+subsequent instructions have to be changed to guarantee that
+addressing is still consistent in the binary. The act of insertion
+and removal also affect the size of the binary and the segments
+within the binary, these changes need to be monitored so that
+the sizes and ranges of segments can be corrected as well.
+
+
+\subsection{Branch Tracking}
+%Why do branch addresses needs to be tracked.
+\todo[inline]{Merge this with instruction addresses?}
+When instructions are removed or inserted in the binary the address
+space of the binary is affected, branching offsets become larger
+or smaller. The tracking branch offsets is needed to be able to correct
+branch instructions after transformations have been applied.
+If it is not corrected there is a significant risk that
+the execution of the transformed binary does not correspond to that of the
+original binary.
+
+\subsection{Activation Records}
+%Why the activation records needs to be controlled.
+If there is a need to push more data to the stack due to transformations, e.g. 
+more register than available are needed forcing values to be pushed to the stack. 
+To avoid corruption on the stack the activation records which allocates space
+on the stack needs to be monitored and modified correctly if more space is needed.
+
 
 \section{Naive Transformation}
 %what is special to the naive optimization
+The only concern the naive transformation method has is that it should only produce
+functional binaries with no concern for performance. Therefore no register
+allocation or instruction scheduling is considered. Obtaining registers
+for new instructions is achieved by pushing register values to the stack, after
+the execution of a new instruction the registers previous values are retrieved
+from the stack. 
 
 \section{Optimized Transformation}
 %what is the optimized tranformation using.
+To improve the execution of transformed binaries the optimized transformation
+can be used. Compared to the naive transformation the optimized uses optimizations
+implemented in the frameworkm, such as register allocation and instruction scheduling
+to improve the execution time by. With the optimizations the utilization of register
+can be improved and stalls in the MIPS pipeline can be avoided.
 
+\todo[inline]{These subsections might not be needed, include in above text instead}
 
+\subsection{Register Allocation}
+%What register allocation is implemented?
+
+\subsection{Instruction Scheduling}
+%What instruction scheduling is implemented?
 

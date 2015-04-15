@@ -3,15 +3,20 @@
 why they are used.}
 
 
-\section{Optimizations}
+\section{Compiler Optimizations}
 \todo[inline]{Introduction to optimizations, their purpose.}
+During compilation of a program optimizations are applied
+to improve the execution time the binary. Two known categories
+of optimization is register allocation and instruction scheduling.
+To improve the execution of transformed binaries optimizations
+like these could also be applied.
 
 \subsection{Register Allocation}
 \todo[inline]{Write about the choices of register allocation}
 
 
 \subsection{Instruction Scheduling}
-\todo[inline]{Write about the choices fo instruction scheduling}
+\todo[inline]{Write about the choices of instruction scheduling}
 
 
 \section{MIPS}
@@ -27,6 +32,8 @@ It is also capable of performing binary analysis on several
 binary formats, one of them being MIPS.
 %
 
+%By using ROSE as the foundation of the framework
+\todo[inline]{Maybe remove this paragrah and move it to implementation}
 Its frontend is used in the project for parsing the binaries and using
 the abstract syntax tree(AST) that ROSE creates to apply desired
 transformations to the binary. The backend will also be used to build
