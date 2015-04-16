@@ -4,6 +4,7 @@ all:
 	pdflatex main
 	biber main
 	pdflatex main
+	mv main.pdf report.pdf
 
 
 clean:
