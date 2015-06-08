@@ -1,4 +1,6 @@
-\chapter{Framework}
+\chapter{Framework Implementation}
+%chaptermark is used to get a shorter name in the header.
+\chaptermark{Implementation}
 
 \begin{itemize}
     \item introduction to chapter
@@ -9,6 +11,8 @@
     \item stack tracking
     \item activation records
     \item symbolic registers
+    \item ---------------------------------------
+    \item user transformation
     \item ---------------------------------------
     \item naive implementation
     \item ---------------------------------------
@@ -65,12 +69,56 @@ on the stack needs to be monitored and modified correctly if more space is neede
 
 \section{Naive Transformation}
 %what is special to the naive optimization
-The only concern the naive transformation method has is that it should only produce
-functional binaries with no concern for performance. Therefore no register
-allocation or instruction scheduling is considered. Obtaining registers
-for new instructions is achieved by pushing register values to the stack, after
-the execution of a new instruction the registers previous values are retrieved
-from the stack. 
+%The only concern the naive transformation method has is that it should only produce
+%functional binaries with no concern for performance. Therefore no register
+%allocation or instruction scheduling is considered. Obtaining registers
+%for new instructions is achieved by pushing register values to the stack, after
+%the execution of a new instruction the registers previous values are retrieved
+%from the stack.
+
+
+
+\begin{itemize}
+    \item naive implementation description \\
+The naive transformation is very simplistic and does not consider performance
+in any form, its only goal is to produce an executable code.
+    \item ---------------------------------------
+    \item region transform \\
+The transformation is applied on a group or region of inserted instructions.
+For the group of inserted instructions the transformer will exchange all
+symbolic registers present.
+    \item register allocation \\
+The register allocation for a group is simple. Each symbolic register encountered
+is replaced with a physical register throughout the region. To preserve the original
+data flow and execution the values of the physical registers now used in the
+instruction group needs to be save before using them and restored afterwards.
+This is done by inserting load and store instructions at the beginning and end
+of the region to preserve the register values. The content of these registers
+are saved to a space on the stack which the naive transformer allocates.
+    \item special case, using accumulator register \\
+A special case regarding the allocation of register is when a region contains
+instructions that uses the 64-bit accumulator register. If this is used
+then a regular register needs to be used to move values to and from
+the high and low portion of the accumulator register. This register that
+needs to be used can be one already allocated for instructions in the
+region. However if the no regular register will be used in the region then
+an extra register needs to be used just to be able to preserve the accumulator
+register.
+    \item stack modification \\
+To be able to save register values space on the stack is needed. To know
+how much space is needed the maximum number of symbolic registers
+encountered in a region is used. This will ensure that there will always
+be enough space on the stack to save register values for each region.
+When it is known how much stack space is needed the instructions
+responsible for stack allocation and deallocation are adjusted to
+include the new stack space used by the naivetransformer.
+    \item ---------------------------------------
+    \item need to remember limitations i have done. how do i write it?
+just add it to the text?
+\end{itemize}
+
+
+
 
 \section{Optimized Transformation}
 %what is the optimized tranformation using.
